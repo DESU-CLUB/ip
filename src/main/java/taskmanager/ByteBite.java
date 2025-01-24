@@ -43,18 +43,62 @@ public class ByteBite {
        }
    }
 
-   private void handleCommand(String input) {
-       if (input.equalsIgnoreCase("list")) {
-           showList();
-       }  else if (input.startsWith("mark ")) {
-            markTask(input, true);
-       } else if (input.startsWith("unmark ")) {
-            markTask(input, false);
-       } else {
-            tasks.add(new Task(input));
-            printWithBorder("\tadded: " + input);
-       }
-   }
+private void handleCommand(String input) {
+    String[] parts = input.split(" ", 2);
+    String command = parts[0].toLowerCase();
+    String details = parts.length > 1 ? parts[1] : "";
+
+    switch (command) {
+        case "todo":
+            Task todo = new Todo(details);
+            tasks.add(todo);
+            printTaskAdded(todo);
+            break;
+        case "deadline":
+            String[] deadlineParts = details.split(" /by ", 2);
+            if (deadlineParts.length == 2) {
+                Task deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                tasks.add(deadline);
+                printTaskAdded(deadline);
+            } else {
+              printWithBorder("Please provide correct format for deadline.");             
+            }
+            break;
+        case "event":
+            String[] eventParts = details.split(" /from ", 2);
+            if (eventParts.length == 2) {
+                String[] timeParts = eventParts[1].split(" /to ", 2);
+                if (timeParts.length == 2) {
+                    Task event = new Event(eventParts[0], timeParts[0], timeParts[1]);
+                    tasks.add(event);
+                    printTaskAdded(event);
+                } else {
+                    printWithBorder("Please provide correct format for event.");
+                }
+            } else {
+                printWithBorder("Please provide correct format for event.");
+            }
+            break;
+        case "list":
+              showList();
+              break;
+        case "mark":
+              markTask(input, true);
+              break;
+        case "unmark":
+              markTask(input, false);
+              break;
+        default:
+              printWithBorder("⚠️ Unknown command: " + command);
+      }
+  }
+
+  private void printTaskAdded(Task task) {
+      StringBuilder message = new StringBuilder("Got it. I've added this task:\n");
+      message.append("  ").append(task).append("\n");
+      message.append("Now you have ").append(tasks.size()).append(" tasks in the list.");
+      printWithBorder(message.toString());
+  }
 
   private void markTask(String input, boolean isDone) {
        try {
