@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class ByteBite {
    private static final String LOGO = """
-           ____  ____  
-          | __ )| __ ) 
-          |  _ \\|  _ \\ 
+           ____  ____
+          | __ )| __ )
+          |  _ \\|  _ \\
           | |_) | |_) |
           |____/|____/
            """;
@@ -26,7 +26,7 @@ public class ByteBite {
 
    public void start() {
        printWithBorder(ANSI_CYAN + "Hello! I'm ByteBite" + ANSI_RESET);
-       System.out.println(ANSI_CYAN + LOGO + ANSI_RESET);
+       System.out.print(ANSI_CYAN + LOGO + ANSI_RESET);
        printWithBorder("What can I do for you?");
 
        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
