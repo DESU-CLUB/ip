@@ -1,3 +1,4 @@
+package taskmanager;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class ByteBite {
    private static final String ANSI_CYAN = "\u001B[36m";
    private static final String ANSI_RESET = "\u001B[0m";
    private static final String BORDER = "─".repeat(50);
-   private ArrayList<String> tasks = new ArrayList<>();
+   private ArrayList<Task> tasks = new ArrayList<>();
 
    private static final String FAREWELL = """
        🤖 *beep* *boop* 
@@ -22,12 +23,8 @@ public class ByteBite {
        *whirring stops* 🤖
        """;
    
-   public static void main(String[] args) {
-       new ByteBite().start();
-   }
 
    public void start() {
-     
        printWithBorder(ANSI_CYAN + "Hello! I'm ByteBite" + ANSI_RESET);
        System.out.println(ANSI_CYAN + LOGO + ANSI_RESET);
        printWithBorder("What can I do for you?");
@@ -39,16 +36,43 @@ public class ByteBite {
                   printWithBorder(ANSI_CYAN + FAREWELL + ANSI_RESET);
                   break;
                }
-               else if (input.equalsIgnoreCase("list")){
-                 showList();
-               }
-               else {
-                 tasks.add(input);
-                 printWithBorder("\tadded: "+input);
-               }
+              handleCommand(input);
            }
        } catch (Exception e) {
            System.err.println("Error reading input: " + e.getMessage());
+       }
+   }
+
+   private void handleCommand(String input) {
+       if (input.equalsIgnoreCase("list")) {
+           showList();
+       }  else if (input.startsWith("mark ")) {
+            markTask(input, true);
+       } else if (input.startsWith("unmark ")) {
+            markTask(input, false);
+       } else {
+            tasks.add(new Task(input));
+            printWithBorder("\tadded: " + input);
+       }
+   }
+
+  private void markTask(String input, boolean isDone) {
+       try {
+           int index = Integer.parseInt(input.split(" ")[1]) - 1;
+           if (index >= 0 && index < tasks.size()) {
+               Task task = tasks.get(index);
+               if (isDone) {
+                   task.markAsDone();
+                   printWithBorder("Nice! I've marked this task as done:\n  " + task);
+               } else {
+                   task.unmark();
+                   printWithBorder("OK, I've marked this task as not done yet:\n  " + task);
+               }
+           } else {
+             printWithBorder("Please provide a valid task number.");
+           }
+       } catch (NumberFormatException | IndexOutOfBoundsException e) {
+           printWithBorder("Please provide a valid task number.");
        }
    }
 
@@ -59,6 +83,8 @@ public class ByteBite {
        }
        printWithBorder(list.toString().trim());
    }
+
+
 
    private void printWithBorder(String message) {
        System.out.println(BORDER);
