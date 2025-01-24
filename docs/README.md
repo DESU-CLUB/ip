@@ -1,4 +1,4 @@
-# Duke User Guide
+# ByteBite User Guide
 
 // Update the title above to match the actual product name
 
@@ -24,7 +24,7 @@ expected output
 
 // Feature details
 
-
 ## Feature XYZ
 
 // Feature details
+
