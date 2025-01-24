@@ -108,7 +108,14 @@ public class ByteBite {
               }
               markTask(input, command.equals("mark"));
               break;
-              
+
+          case "delete":
+              if (details.isEmpty()) {
+                  throw new InvalidFormatException("Please provide a task number to delete");
+              }
+              deleteTask(input);
+              break;    
+
           case "help":
               showHelp();
               break;
@@ -127,6 +134,7 @@ public class ByteBite {
           list
           mark <task number>
           unmark <task number>
+          delete <task number>
           bye
           """;
       printWithBorder(help);
@@ -166,6 +174,25 @@ public class ByteBite {
        }
        printWithBorder(list.toString().trim());
    }
+
+
+  private void deleteTask(String input) throws ByteBiteException {
+    try {
+        int taskNumber = Integer.parseInt(input.split(" ")[1]);
+        int index = taskNumber - 1;
+        
+        if (index < 0 || index >= tasks.size()) {
+            throw new TaskNotFoundException(taskNumber, tasks.size());
+        }
+        
+        Task deletedTask = tasks.remove(index);
+        String message = "Noted. I've removed this task:\n  " + deletedTask + 
+                        "\nNow you have " + tasks.size() + " tasks in the list.";
+        printWithBorder(message);
+    } catch (NumberFormatException e) {
+        throw new InvalidFormatException("Please provide a valid task number");
+    }
+  }
 
 
 

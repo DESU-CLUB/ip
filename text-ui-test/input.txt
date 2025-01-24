@@ -5,8 +5,10 @@ event project meeting /from Mon 1pm /to Tues 2pm
 mark 1
 unmark 1
 list
-bye
 mark 8
 todo
 deadline
 event
+delete 1
+delete 8
+bye
