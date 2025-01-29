@@ -1,7 +1,9 @@
+// Storage.java
 package taskmanager;
 
 import java.io.*;
 import java.nio.file.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Storage {
@@ -13,6 +15,13 @@ public class Storage {
         this.filePath = directoryPath.resolve(filename);
     }
 
+    /**
+     * Saves tasks to a file.
+     * Format: TYPE | isDONE | DESCRIPTION | [DATE] | [END_DATE]
+     * Example: T | 1 | do homework
+     *          D | 0 | submit work | 2024-12-31
+     *          E | 0 | meeting | 2024-12-31 | 2024-12-31
+     */
     public void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
         // Create directories if they don't exist
         Files.createDirectories(directoryPath);
@@ -25,6 +34,39 @@ public class Storage {
         }
     }
 
+    private String convertTaskToStorageFormat(Task task) {
+        StringBuilder sb = new StringBuilder();
+        
+        // Add task type
+        if (task instanceof Todo) {
+            sb.append("T");
+        } else if (task instanceof Deadline) {
+            sb.append("D");
+        } else if (task instanceof Event) {
+            sb.append("E");
+        }
+        
+        // Add done status and description
+        sb.append(" | ").append(task.isDone() ? "1" : "0")
+          .append(" | ").append(task.description);
+        
+        // Add specific fields based on task type
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            sb.append(" | ").append(DateParser.formatForStorage(deadline.getDate()));
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            sb.append(" | ").append(DateParser.formatForStorage(event.getStartDate()))
+              .append(" | ").append(DateParser.formatForStorage(event.getEndDate()));
+        }
+        
+        return sb.toString();
+    }
+
+    /**
+     * Loads tasks from a file.
+     * If file doesn't exist, returns an empty list.
+     */
     public ArrayList<Task> loadTasksFromFile() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         
@@ -49,43 +91,6 @@ public class Storage {
         return tasks;
     }
 
-    public boolean deleteTasksFile() {
-        try {
-            return Files.deleteIfExists(filePath);
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
-    private String convertTaskToStorageFormat(Task task) {
-        StringBuilder sb = new StringBuilder();
-        
-        // Add task type
-        if (task instanceof Todo) {
-            sb.append("T");
-        } else if (task instanceof Deadline) {
-            sb.append("D");
-        } else if (task instanceof Event) {
-            sb.append("E");
-        }
-        
-        // Add done status and description
-        sb.append(" | ").append(task.isDone() ? "1" : "0")
-          .append(" | ").append(task.description);
-        
-        // Add specific fields based on task type
-        if (task instanceof Deadline) {
-            Deadline deadline = (Deadline) task;
-            sb.append(" | ").append(deadline.getStorageDate());
-        } else if (task instanceof Event) {
-            Event event = (Event) task;
-            sb.append(" | ").append(event.getStorageStartDate())
-              .append(" | ").append(event.getStorageEndDate());
-        }
-        
-        return sb.toString();
-    }
-
     private Task convertStorageFormatToTask(String line) {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
@@ -104,11 +109,17 @@ public class Storage {
                     break;
                 case "D":
                     if (parts.length < 4) throw new IllegalArgumentException("Invalid deadline format");
-                    task = new Deadline(description, parts[3]);
+                    LocalDate deadlineDate = DateParser.parseDate(parts[3]);
+                    task = new Deadline(description, deadlineDate);
                     break;
                 case "E":
                     if (parts.length < 5) throw new IllegalArgumentException("Invalid event format");
-                    task = new Event(description, parts[3], parts[4]);
+                    LocalDate startDate = DateParser.parseDate(parts[3]);
+                    LocalDate endDate = DateParser.parseDate(parts[4]);
+                    if (!DateParser.isValidDateRange(startDate, endDate)) {
+                        throw new IllegalArgumentException("Invalid date range in storage file");
+                    }
+                    task = new Event(description, startDate, endDate);
                     break;
                 default:
                     throw new IllegalArgumentException("Unknown task type: " + type);
@@ -124,5 +135,15 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Deletes the tasks file if it exists.
+     * @return true if file was deleted or didn't exist, false if deletion failed
+     */
+    public boolean deleteTasksFile() {
+        try {
+            return Files.deleteIfExists(filePath);
+        } catch (IOException e) {
+            return false;
+        }
+    }
 }

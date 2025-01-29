@@ -1,0 +1,27 @@
+// Parser.java
+package taskmanager;
+
+public class Parser {
+       public Command parseCommand(String input) throws ByteBiteException {
+        if (input.trim().isEmpty()) {
+            throw new InvalidCommandException(input);
+        }
+
+        String[] parts = input.split(" ", 2);
+        String commandType = parts[0].toLowerCase();
+        String details = parts.length > 1 ? parts[1].trim() : "";
+
+        return switch (commandType) {
+            case "todo" -> new TodoCommand(details);
+            case "deadline" -> new DeadlineCommand(details);
+            case "event" -> new EventCommand(details);
+            case "list" -> new ListCommand();
+            case "mark" -> new MarkCommand(details, true);
+            case "unmark" -> new MarkCommand(details, false);
+            case "delete" -> new DeleteCommand(details);
+            case "help" -> new HelpCommand();
+            case "find" -> new FindCommand(details);
+            default -> throw new InvalidCommandException(commandType);
+        };
+    }
+}
