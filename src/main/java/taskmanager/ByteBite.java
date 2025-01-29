@@ -2,6 +2,7 @@ package taskmanager;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.io.IOException;
 
 public class ByteBite {
   private static final String LOGO = """
@@ -16,6 +17,51 @@ public class ByteBite {
   private static final String ANSI_RESET = "\u001B[0m";
   private static final String BORDER = "─".repeat(50);
   private ArrayList<Task> tasks = new ArrayList<>();
+  private final Storage storage;
+
+  public ByteBite(){
+      storage = new Storage("./data", "tasks.txt");
+      loadTasks();
+  }
+
+  private void loadTasks() {
+    try {
+      tasks = storage.loadTasksFromFile();
+      if (!tasks.isEmpty()){
+          printWithBorder("Loaded " + tasks.size() + " tasks from storage");
+      }
+    } catch (IOException e) {
+      printWithBorder("Error loading tasks from storage: " + e.getMessage());
+      handleCorruptedFile(e);
+    }
+  }
+
+  private void handleCorruptedFile(IOException error) {
+    printWithBorder("⚠️ Error detected in tasks file: " + error.getMessage());
+    try {
+        // Delete the corrupted file
+        if (storage.deleteTasksFile()) {
+            printWithBorder("Corrupted tasks file has been removed");
+            // Initialize empty task list
+            tasks = new ArrayList<>();
+            // Create a fresh storage file
+            storage.saveTasksToFile(tasks);
+            printWithBorder("Created new empty tasks file");
+        } else {
+            printWithBorder("❌ Unable to remove corrupted file - please check file permissions");
+        }
+    } catch (IOException e) {
+        printWithBorder("❌ Critical error handling corrupted file: " + e.getMessage());
+    }
+  }
+
+  private void saveTasks() {
+      try {
+          storage.saveTasksToFile(tasks);
+      } catch (IOException e) {
+          printWithBorder("Error saving tasks: " + e.getMessage());
+        }
+    }
 
   private static final String FAREWELL = """
       🤖 *beep* *boop* 
@@ -65,6 +111,7 @@ public class ByteBite {
               Task todo = new Todo(details);
               tasks.add(todo);
               printTaskAdded(todo);
+              saveTasks();
               break;
               
           case "deadline":
@@ -78,6 +125,7 @@ public class ByteBite {
               Task deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
               tasks.add(deadline);
               printTaskAdded(deadline);
+              saveTasks();
               break;
               
           case "event":
@@ -95,6 +143,7 @@ public class ByteBite {
               Task event = new Event(eventParts[0], timeParts[0], timeParts[1]);
               tasks.add(event);
               printTaskAdded(event);
+              saveTasks();
               break;
               
           case "list":
@@ -107,6 +156,7 @@ public class ByteBite {
                   throw new InvalidFormatException("Please provide a task number to " + command);
               }
               markTask(input, command.equals("mark"));
+              saveTasks();
               break;
 
           case "delete":
@@ -114,6 +164,7 @@ public class ByteBite {
                   throw new InvalidFormatException("Please provide a task number to delete");
               }
               deleteTask(input);
+              saveTasks();
               break;    
 
           case "help":
