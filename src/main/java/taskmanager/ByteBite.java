@@ -3,6 +3,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class ByteBite {
   private static final String LOGO = """
@@ -170,28 +173,79 @@ public class ByteBite {
           case "help":
               showHelp();
               break;
+
+          case "find":
+              if (details.isEmpty()) {
+                  throw new InvalidFormatException("Please provide a date to find tasks");
+              }
+
+              findTasksOnDate(details);
+              break;
+                        
               
           default:
               throw new InvalidCommandException(command);
       }
   }
 
-  private void showHelp() {
-      String help = """
-          Available commands:
-          todo <task>
-          deadline <task> /by <date>
-          event <name> /from <start> /to <end>
-          list
-          mark <task number>
-          unmark <task number>
-          delete <task number>
-          bye
-          """;
-      printWithBorder(help);
-  }
+   
 
-  private void printTaskAdded(Task task) {
+  private void showHelp() {
+        String help = """
+            Available commands:
+            todo <task>
+            deadline <task> /by yyyy-MM-dd
+            event <name> /from yyyy-MM-dd /to yyyy-MM-dd
+            list
+            find <yyyy-MM-dd>
+            mark <task number>
+            unmark <task number>
+            delete <task number>
+            bye
+            
+            Date format: yyyy-MM-dd (e.g., 2024-12-31 for Dec 31 2024)
+            """;
+        printWithBorder(help);
+    }
+
+    private void findTasksOnDate(String dateStr) {
+        try {
+            LocalDate targetDate = LocalDate.parse(dateStr);
+            StringBuilder results = new StringBuilder("Tasks on " + 
+                targetDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":\n");
+            
+            boolean found = false;
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+                boolean matches = false;
+                
+                if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    matches = deadline.getDate().equals(targetDate);
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    LocalDate startDate = event.getStartDate();
+                    LocalDate endDate = event.getEndDate();
+                    matches = (!startDate.isAfter(targetDate) && !endDate.isBefore(targetDate));
+                }
+                
+                if (matches) {
+                    found = true;
+                    results.append(String.format("%d. %s%n", i + 1, task));
+                }
+            }
+            
+            if (!found) {
+                results.append("No tasks found on this date.");
+            }
+            
+            printWithBorder(results.toString().trim());
+        } catch (DateTimeParseException e) {
+            printWithBorder(" ⚠️ Please use the format yyyy-MM-dd (e.g., 2024-12-31)");
+        }
+    }
+
+   private void printTaskAdded(Task task) {
       StringBuilder message = new StringBuilder("Got it. I've added this task:\n");
       message.append("  ").append(task).append("\n");
       message.append("Now you have ").append(tasks.size()).append(" tasks in the list.");

@@ -75,11 +75,12 @@ public class Storage {
         
         // Add specific fields based on task type
         if (task instanceof Deadline) {
-            sb.append(" | ").append(((Deadline) task).by);
+            Deadline deadline = (Deadline) task;
+            sb.append(" | ").append(deadline.getStorageDate());
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            sb.append(" | ").append(event.startTime)
-              .append(" | ").append(event.endTime);
+            sb.append(" | ").append(event.getStorageStartDate())
+              .append(" | ").append(event.getStorageEndDate());
         }
         
         return sb.toString();
@@ -96,26 +97,32 @@ public class Storage {
         String description = parts[2];
         Task task;
 
-        switch (type) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                if (parts.length < 4) throw new IllegalArgumentException("Invalid deadline format");
-                task = new Deadline(description, parts[3]);
-                break;
-            case "E":
-                if (parts.length < 5) throw new IllegalArgumentException("Invalid event format");
-                task = new Event(description, parts[3], parts[4]);
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown task type: " + type);
-        }
+        try {
+            switch (type) {
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    if (parts.length < 4) throw new IllegalArgumentException("Invalid deadline format");
+                    task = new Deadline(description, parts[3]);
+                    break;
+                case "E":
+                    if (parts.length < 5) throw new IllegalArgumentException("Invalid event format");
+                    task = new Event(description, parts[3], parts[4]);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown task type: " + type);
+            }
 
-        if (isDone) {
-            task.markAsDone();
-        }
+            if (isDone) {
+                task.markAsDone();
+            }
 
-        return task;
+            return task;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Error parsing task: " + e.getMessage());
+        }
     }
+
+
 }
