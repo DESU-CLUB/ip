@@ -1,24 +1,26 @@
-// FindCommand.java (updated to use DateParser)
+
+// FindCommand.java - New keyword search command
 package taskmanager.command;
 
 import taskmanager.task.TaskList;
 import taskmanager.task.Task;
 import taskmanager.ui.Ui;
-import taskmanager.parser.DateParser;
 import taskmanager.utils.ByteBiteException;
 import taskmanager.utils.InvalidFormatException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
  * Represents a command to find tasks scheduled on a specific date.
  * Shows all tasks (events, deadlines) that fall on the given date.
  */
+/**
+ * Represents a command to find tasks by searching for keywords in their descriptions.
+ */
 public class FindCommand extends Command {
     /**
-     * Creates a new FindCommand with the given date.
+     * Creates a new FindCommand for keyword search.
      *
-     * @param details The target date in yyyy-MM-dd format.
+     * @param details The keyword to search for in task descriptions.
      */
     public FindCommand(String details) {
         super(details);
@@ -32,27 +34,22 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui) throws ByteBiteException {
         if (details.isEmpty()) {
-            throw new InvalidFormatException("Please provide a date to find tasks");
+            throw new InvalidFormatException("Please provide a keyword to search for");
         }
 
-        try {
-            LocalDate targetDate = DateParser.parseDate(details.trim());
-            ArrayList<Task> matchingTasks = tasks.findTasksOnDate(targetDate);
-            
-            StringBuilder results = new StringBuilder("Tasks on " + 
-                DateParser.formatForDisplay(targetDate) + ":\n");
-                
-            if (matchingTasks.isEmpty()) {
-                results.append("No tasks found on this date.");
-            } else {
-                for (int i = 0; i < matchingTasks.size(); i++) {
-                    results.append(String.format("%d. %s%n", i + 1, matchingTasks.get(i)));
-                }
+        String keyword = details.trim();
+        ArrayList<Task> matchingTasks = tasks.findTasksByKeyword(keyword);
+        
+        StringBuilder results = new StringBuilder("Here are the matching tasks in your list:\n");
+        
+        if (matchingTasks.isEmpty()) {
+            results = new StringBuilder("No matching tasks found.");
+        } else {
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                results.append(String.format("%d.%s%n", i + 1, matchingTasks.get(i)));
             }
-            
-            ui.showMessage(results.toString().trim());
-        } catch (IllegalArgumentException e) {
-            throw new InvalidFormatException("Please use the format yyyy-MM-dd (e.g., 2024-12-31)");
         }
+        
+        ui.showMessage(results.toString().trim());
     }
 }

@@ -98,7 +98,8 @@ public class Ui {
             deadline <task> /by yyyy-MM-dd
             event <name> /from yyyy-MM-dd /to yyyy-MM-dd
             list
-            find <yyyy-MM-dd>
+            find <keyword> -- search for tasks with keyword
+            finddate <yyyy-MM-dd> -- search for tasks with date
             mark <task number>
             unmark <task number>
             delete <task number>
