@@ -1,5 +1,9 @@
 // HelpCommand.java
-package taskmanager;
+package taskmanager.command;
+
+import taskmanager.task.TaskList;
+import taskmanager.ui.Ui;
+import taskmanager.utils.ByteBiteException;
 
 public class HelpCommand extends Command {
     public HelpCommand() {

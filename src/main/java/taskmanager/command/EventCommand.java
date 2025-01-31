@@ -1,6 +1,14 @@
-
 // EventCommand.java (enhanced with date parsing)
-package taskmanager;
+package taskmanager.command;
+
+import taskmanager.task.TaskList;
+import taskmanager.task.Task;
+import taskmanager.task.Event;
+import taskmanager.ui.Ui;
+import taskmanager.parser.DateParser;
+import taskmanager.utils.ByteBiteException;
+import taskmanager.utils.EmptyDescriptionException;
+import taskmanager.utils.InvalidFormatException;
 import java.time.LocalDate;
 
 public class EventCommand extends Command {

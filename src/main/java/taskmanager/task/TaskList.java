@@ -1,5 +1,7 @@
 // TaskList.java
-package taskmanager;
+package taskmanager.task;
+
+import taskmanager.utils.TaskNotFoundException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 

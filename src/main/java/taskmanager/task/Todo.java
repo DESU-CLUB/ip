@@ -1,5 +1,5 @@
 // Todo.java
-package taskmanager;
+package taskmanager.task;
 
 public class Todo extends Task {
     public Todo(String description) {

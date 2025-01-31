@@ -1,5 +1,10 @@
 // Parser.java
-package taskmanager;
+package taskmanager.parser;
+
+import taskmanager.command.*;
+import taskmanager.utils.ByteBiteException;
+import taskmanager.utils.InvalidCommandException;
+
 
 public class Parser {
        public Command parseCommand(String input) throws ByteBiteException {

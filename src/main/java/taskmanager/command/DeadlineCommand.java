@@ -1,6 +1,15 @@
 
 // DeadlineCommand.java (enhanced with date parsing)
-package taskmanager;
+package taskmanager.command;
+
+import taskmanager.task.TaskList;
+import taskmanager.task.Task;
+import taskmanager.task.Deadline;
+import taskmanager.ui.Ui;
+import taskmanager.parser.DateParser;
+import taskmanager.utils.ByteBiteException;
+import taskmanager.utils.EmptyDescriptionException;
+import taskmanager.utils.InvalidFormatException;
 import java.time.LocalDate;
 
 public class DeadlineCommand extends Command {

@@ -1,6 +1,8 @@
 // Storage.java
-package taskmanager;
+package taskmanager.storage;
 
+import taskmanager.task.*;
+import taskmanager.parser.DateParser;
 import java.io.*;
 import java.nio.file.*;
 import java.time.LocalDate;
@@ -48,7 +50,7 @@ public class Storage {
         
         // Add done status and description
         sb.append(" | ").append(task.isDone() ? "1" : "0")
-          .append(" | ").append(task.description);
+          .append(" | ").append(task.getDescription());
         
         // Add specific fields based on task type
         if (task instanceof Deadline) {
