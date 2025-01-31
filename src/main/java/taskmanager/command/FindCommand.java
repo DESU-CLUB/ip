@@ -10,10 +10,6 @@ import taskmanager.utils.InvalidFormatException;
 import java.util.ArrayList;
 
 /**
- * Represents a command to find tasks scheduled on a specific date.
- * Shows all tasks (events, deadlines) that fall on the given date.
- */
-/**
  * Represents a command to find tasks by searching for keywords in their descriptions.
  */
 public class FindCommand extends Command {
@@ -29,7 +25,7 @@ public class FindCommand extends Command {
     /**
      * Finds and displays all tasks scheduled for the specified date.
      * 
-     * @throws InvalidFormatException If the date format is invalid.
+     * @throws ByteBiteException If the keyword is invalid.
      */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ByteBiteException {
