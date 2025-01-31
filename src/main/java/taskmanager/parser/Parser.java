@@ -26,6 +26,7 @@ public class Parser {
             case "delete" -> new DeleteCommand(details);
             case "help" -> new HelpCommand();
             case "find" -> new FindCommand(details);
+            case "finddate" -> new FindDateCommand(details);
             default -> throw new InvalidCommandException(commandType);
         };
     }
