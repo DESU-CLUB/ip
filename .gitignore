@@ -13,5 +13,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
+#TEST UI FILES 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+#jar files
+*.jar
