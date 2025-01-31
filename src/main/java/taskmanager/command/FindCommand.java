@@ -10,11 +10,25 @@ import taskmanager.utils.InvalidFormatException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Represents a command to find tasks scheduled on a specific date.
+ * Shows all tasks (events, deadlines) that fall on the given date.
+ */
 public class FindCommand extends Command {
+    /**
+     * Creates a new FindCommand with the given date.
+     *
+     * @param details The target date in yyyy-MM-dd format.
+     */
     public FindCommand(String details) {
         super(details);
     }
 
+    /**
+     * Finds and displays all tasks scheduled for the specified date.
+     * 
+     * @throws InvalidFormatException If the date format is invalid.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ByteBiteException {
         if (details.isEmpty()) {

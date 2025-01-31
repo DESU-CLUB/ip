@@ -8,14 +8,30 @@ import taskmanager.utils.ByteBiteException;
 import taskmanager.utils.InvalidFormatException;
 import taskmanager.utils.TaskNotFoundException;
 
+/**
+ * Represents a command to mark or unmark a task as done.
+ * Tasks are identified by their number in the list (1-based indexing).
+ */
 public class MarkCommand extends Command {
     private final boolean markAsDone;
 
+    /**
+     * Creates a new MarkCommand with the given task number and mark status.
+     *
+     * @param details The task number to mark/unmark (as a string).
+     * @param markAsDone true to mark as done, false to mark as not done.
+     */
     public MarkCommand(String details, boolean markAsDone) {
         super(details);
         this.markAsDone = markAsDone;
     }
 
+    /**
+     * Marks or unmarks the specified task as done.
+     * 
+     * @throws InvalidFormatException If the task number is not provided or invalid.
+     * @throws TaskNotFoundException If the task number does not exist in the list.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ByteBiteException {
         if (details.isEmpty()) {

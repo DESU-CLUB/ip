@@ -12,13 +12,29 @@ import taskmanager.utils.EmptyDescriptionException;
 import taskmanager.utils.InvalidFormatException;
 import java.time.LocalDate;
 
+/**
+ * Represents a command to create a new deadline task with a due date.
+ * Deadlines must have a description and valid date.
+ */
 public class DeadlineCommand extends Command {
     private static final String BY_DELIMITER = " /by ";
     
+    /**
+     * Creates a new DeadlineCommand with the given task details.
+     *
+     * @param details The deadline description and date in the format:
+     *                "description /by date"
+     */
     public DeadlineCommand(String details) {
         super(details);
     }
 
+    /**
+     * Creates a new deadline task and adds it to the task list.
+     * 
+     * @throws EmptyDescriptionException If the deadline description is empty.
+     * @throws InvalidFormatException If the command format is invalid or date is invalid.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ByteBiteException {
         if (details.isEmpty()) {

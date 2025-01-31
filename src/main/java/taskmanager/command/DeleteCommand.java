@@ -11,11 +11,26 @@ import taskmanager.utils.TaskNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Represents a command to delete a task from the task list.
+ * Tasks are identified by their number in the list (1-based indexing).
+ */
 public class DeleteCommand extends Command {
+    /**
+     * Creates a new DeleteCommand with the given task number.
+     *
+     * @param details The task number to delete (as a string).
+     */
     public DeleteCommand(String details) {
         super(details);
     }
 
+    /**
+     * Deletes the specified task from the task list.
+     * 
+     * @throws InvalidFormatException If the task number is not provided or invalid.
+     * @throws TaskNotFoundException If the task number does not exist in the list.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ByteBiteException {
         if (details.isEmpty()) {
