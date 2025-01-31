@@ -1,5 +1,12 @@
 // FindCommand.java (updated to use DateParser)
-package taskmanager;
+package taskmanager.command;
+
+import taskmanager.task.TaskList;
+import taskmanager.task.Task;
+import taskmanager.ui.Ui;
+import taskmanager.parser.DateParser;
+import taskmanager.utils.ByteBiteException;
+import taskmanager.utils.InvalidFormatException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 

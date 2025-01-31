@@ -1,5 +1,5 @@
 // DateParser.java
-package taskmanager;
+package taskmanager.parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -1,5 +1,7 @@
 // Ui.java
-package taskmanager;
+package taskmanager.ui;
+
+import taskmanager.task.Task;
 import java.util.ArrayList;
 
 public class Ui {

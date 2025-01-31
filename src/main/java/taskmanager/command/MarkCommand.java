@@ -1,5 +1,12 @@
 // MarkCommand.java
-package taskmanager;
+package taskmanager.command;
+
+import taskmanager.task.TaskList;
+import taskmanager.task.Task;
+import taskmanager.ui.Ui;
+import taskmanager.utils.ByteBiteException;
+import taskmanager.utils.InvalidFormatException;
+import taskmanager.utils.TaskNotFoundException;
 
 public class MarkCommand extends Command {
     private final boolean markAsDone;
