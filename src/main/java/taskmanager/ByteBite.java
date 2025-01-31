@@ -34,7 +34,7 @@ public class ByteBite {
         }
     }
 
-    private void handleCorruptedFile(IOException error) {
+    public void handleCorruptedFile(IOException error) {
         ui.showError("⚠️ Error detected in tasks file: " + error.getMessage());
         try {
             if (storage.deleteTasksFile()) {
@@ -50,7 +50,7 @@ public class ByteBite {
         }
     }
 
-    private void saveTasks() {
+    public void saveTasks() {
         try {
             storage.saveTasksToFile(tasks.getTaskList());
         } catch (IOException e) {
@@ -79,7 +79,7 @@ public class ByteBite {
         }
     }
 
-    private void handleCommand(String input) throws ByteBiteException {
+    public void handleCommand(String input) throws ByteBiteException {
         Command command = parser.parseCommand(input);
         command.execute(tasks, ui);
         if (command.requiresSave()) {

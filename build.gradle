@@ -44,11 +44,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("taskmanager.ByteBite")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "ByteBite"
     archiveClassifier = null
 }
 
