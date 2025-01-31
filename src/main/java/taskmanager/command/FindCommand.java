@@ -22,6 +22,11 @@ public class FindCommand extends Command {
         super(details);
     }
 
+    /**
+     * Finds and displays all tasks scheduled for the specified date.
+     * 
+     * @throws ByteBiteException If the keyword is invalid.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ByteBiteException {
         if (details.isEmpty()) {

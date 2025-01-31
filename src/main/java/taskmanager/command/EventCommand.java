@@ -11,14 +11,29 @@ import taskmanager.utils.EmptyDescriptionException;
 import taskmanager.utils.InvalidFormatException;
 import java.time.LocalDate;
 
+/**
+ * Creates a new ListCommand with no additional details needed.
+ */
 public class EventCommand extends Command {
     private static final String FROM_DELIMITER = " /from ";
     private static final String TO_DELIMITER = " /to ";
     
+    /**
+     * Creates a new EventCommand with the given event details.
+     *
+     * @param details The event description and date range in the format:
+     *                "description /from start-date /to end-date"
+     */
     public EventCommand(String details) {
         super(details);
     }
 
+    /**
+     * Creates a new event task and adds it to the task list.
+     * 
+     * @throws EmptyDescriptionException If the event description is empty.
+     * @throws InvalidFormatException If the command format is invalid or dates are invalid.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ByteBiteException {
         if (details.isEmpty()) {

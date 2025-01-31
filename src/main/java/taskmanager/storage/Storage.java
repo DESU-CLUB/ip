@@ -8,21 +8,32 @@ import java.nio.file.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Handles persistence of task data to and from disk storage.
+ * Uses a text-based file format to store tasks with their attributes.
+ */
 public class Storage {
     private final Path filePath;
     private final Path directoryPath;
 
+    /**
+     * Creates a new Storage instance with the specified directory and filename.
+     *
+     * @param directory The directory path for storing task data.
+     * @param filename The name of the file to store tasks in.
+     */
     public Storage(String directory, String filename) {
         this.directoryPath = Paths.get(directory);
         this.filePath = directoryPath.resolve(filename);
     }
 
     /**
-     * Saves tasks to a file.
-     * Format: TYPE | isDONE | DESCRIPTION | [DATE] | [END_DATE]
-     * Example: T | 1 | do homework
-     *          D | 0 | submit work | 2024-12-31
-     *          E | 0 | meeting | 2024-12-31 | 2024-12-31
+     * Saves a list of tasks to the storage file.
+     * Creates necessary directories if they don't exist.
+     * Each task is stored in the format: TYPE | isDONE | DESCRIPTION | [DATE] | [END_DATE]
+     *
+     * @param tasks The list of tasks to save.
+     * @throws IOException If there is an error writing to the file.
      */
     public void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
         // Create directories if they don't exist
@@ -36,6 +47,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a Task object to a string in the storage format.
+     * The format is: TYPE | isDONE | DESCRIPTION | [DATE] | [END_DATE]
+     *
+     * @param task The Task object to convert.
+     * @return The string representation of the task in storage format.
+     */
     private String convertTaskToStorageFormat(Task task) {
         StringBuilder sb = new StringBuilder();
         
@@ -66,8 +84,12 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from a file.
-     * If file doesn't exist, returns an empty list.
+     * Loads tasks from the storage file.
+     * Returns an empty list if the file doesn't exist.
+     * Skips invalid lines in the file with a warning.
+     *
+     * @return The list of tasks loaded from storage.
+     * @throws IOException If there is an error reading from the file.
      */
     public ArrayList<Task> loadTasksFromFile() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -93,6 +115,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Converts a line from the storage file to a Task object.
+     * Throws an IllegalArgumentException if the line is invalid.
+     *
+     * @param line The line to convert.
+     * @return The Task object created from the line.
+     */
     private Task convertStorageFormatToTask(String line) {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
@@ -138,8 +167,9 @@ public class Storage {
     }
 
     /**
-     * Deletes the tasks file if it exists.
-     * @return true if file was deleted or didn't exist, false if deletion failed
+     * Deletes the tasks storage file if it exists.
+     *
+     * @return true if the file was deleted or didn't exist, false if deletion failed.
      */
     public boolean deleteTasksFile() {
         try {
