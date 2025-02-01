@@ -115,4 +115,27 @@ public class ByteBite {
             saveTasks();
         }
     }
+
+    /**
+     * Gets the current task list managed by ByteBite.
+     * @return The current task list
+     */
+    public TaskList getTasks() {
+        return tasks;
+    }
+
+    /**
+     * Processes a user command with a custom UI by parsing it and executing the corresponding action.
+     * Saves task list if the command modifies task data.
+     * @param input The user input string to process.
+     * @param customUi The custom UI to use for command output.
+     * @throws ByteBiteException If there is an error processing the command
+     */
+    public void handleCommandWithUi(String input, Ui customUi) throws ByteBiteException {
+        Command command = parser.parseCommand(input);
+        command.execute(tasks, customUi);
+        if (command.requiresSave()) {
+            saveTasks();
+        }
+    }
 }

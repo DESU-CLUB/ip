@@ -1,0 +1,29 @@
+/* dark-theme.css */
+.root {
+    -fx-background-color: #15202b;
+}
+
+.theme-toggle {
+    -fx-background-color: #253341;
+    -fx-text-fill: white;
+    -fx-border-color: #38444d;
+}
+
+.text-field {
+    -fx-background-color: #253341;
+    -fx-text-fill: white;
+    -fx-border-color: #38444d;
+}
+
+.dialog-container {
+    -fx-background-color: #15202b;
+}
+
+.scroll-pane {
+    -fx-background: #15202b;
+}
+
+.dialog-box {
+    -fx-background-color: #192734;
+    -fx-text-fill: white;
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:id="mainContainer" xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="taskmanager.MainViewController"
+      spacing="10" style="-fx-padding: 10;">
+    
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <TextField fx:id="commandInput" HBox.hgrow="ALWAYS" 
+                  promptText="Enter command (type 'help' for available commands)"/>
+    </HBox>
+    
+    <SplitPane VBox.vgrow="ALWAYS" orientation="VERTICAL">
+        <ListView fx:id="taskListView" VBox.vgrow="ALWAYS"/>
+        <TextArea fx:id="outputArea" VBox.vgrow="ALWAYS" 
+                  editable="false" wrapText="true"
+                  style="-fx-font-family: 'monospace';"/>
+    </SplitPane>
+    
+    <stylesheets>
+        <URL value="@/css/styles.css"/>
+    </stylesheets>
+</VBox>
