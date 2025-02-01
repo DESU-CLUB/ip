@@ -17,33 +17,41 @@ public class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
-       this.description = description;
-       this.isDone = false;
-    }  
+        this.description = description;
+        this.isDone = false;
+    }
 
     /**
      * Returns the description of this task.
      *
      * @return The task description.
      */
-    public String getDescription() { return description; }
+    public String getDescription() {
+        return description;
+    }
 
     /**
      * Marks this task as complete.
      */
-    public void markAsDone() { isDone = true; }
+    public void markAsDone() {
+        isDone = true;
+    }
 
     /**
      * Marks this task as not complete.
      */
-    public void unmark() { isDone = false; }
+    public void unmark() {
+        isDone = false;
+    }
 
     /**
      * Returns whether this task is marked as done.
      *
      * @return true if the task is complete, false otherwise.
      */
-    public boolean isDone() { return isDone; }
+    public boolean isDone() {
+        return isDone;
+    }
 
     @Override
     public String toString() {

@@ -12,7 +12,6 @@ import java.time.format.DateTimeParseException;
 public class DateParser {
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy");
-    
     /**
      * Parses a date string into a LocalDate object.
      * Expects dates in the format yyyy-MM-dd.
@@ -41,7 +40,6 @@ public class DateParser {
     public static String formatForDisplay(LocalDate date) {
         return date.format(OUTPUT_FORMATTER);
     }
-    
     /**
      * Formats a LocalDate for storage.
      * Uses the format "yyyy-MM-dd" for consistent storage format.
@@ -52,7 +50,6 @@ public class DateParser {
     public static String formatForStorage(LocalDate date) {
         return date.format(INPUT_FORMATTER);
     }
-    
     /**
      * Checks if a date range is valid (end date is not before start date).
      *

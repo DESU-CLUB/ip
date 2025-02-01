@@ -1,8 +1,9 @@
 // TodoCommand.java
 package taskmanager.command;
 
-import taskmanager.task.TaskList;
+
 import taskmanager.task.Task;
+import taskmanager.task.TaskList;
 import taskmanager.task.Todo;
 import taskmanager.ui.Ui;
 import taskmanager.utils.ByteBiteException;
@@ -24,7 +25,6 @@ public class TodoCommand extends Command {
 
     /**
      * Creates a new todo task and adds it to the task list.
-     * 
      * @throws EmptyDescriptionException If the todo description is empty.
      */
     @Override

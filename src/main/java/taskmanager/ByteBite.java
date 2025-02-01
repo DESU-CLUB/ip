@@ -2,16 +2,16 @@
 // ByteBite.java
 package taskmanager;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import taskmanager.command.Command;
 import taskmanager.parser.Parser;
 import taskmanager.storage.Storage;
 import taskmanager.task.TaskList;
 import taskmanager.ui.Ui;
 import taskmanager.utils.ByteBiteException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
-
 /**
  * The main class for the ByteBite task management application.
  * Handles initialization of components, user input processing,
@@ -83,7 +83,6 @@ public class ByteBite {
      */
     public void start() {
         ui.showWelcome();
-        
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             String input;
             while ((input = reader.readLine()) != null) {

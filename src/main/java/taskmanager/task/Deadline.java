@@ -1,9 +1,10 @@
-
 // Updated Deadline.java
 package taskmanager.task;
 
-import taskmanager.parser.DateParser;
 import java.time.LocalDate;
+
+import taskmanager.parser.DateParser;
+
 
 /**
  * Represents a task with a specific deadline date.

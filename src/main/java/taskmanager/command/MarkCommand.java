@@ -1,8 +1,9 @@
 // MarkCommand.java
 package taskmanager.command;
 
-import taskmanager.task.TaskList;
+
 import taskmanager.task.Task;
+import taskmanager.task.TaskList;
 import taskmanager.ui.Ui;
 import taskmanager.utils.ByteBiteException;
 import taskmanager.utils.InvalidFormatException;
@@ -28,22 +29,20 @@ public class MarkCommand extends Command {
 
     /**
      * Marks or unmarks the specified task as done.
-     * 
      * @throws InvalidFormatException If the task number is not provided or invalid.
      * @throws TaskNotFoundException If the task number does not exist in the list.
      */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ByteBiteException {
         if (details.isEmpty()) {
-            throw new InvalidFormatException("Please provide a task number to " + 
-                (markAsDone ? "mark" : "unmark"));
+            throw new InvalidFormatException("Please provide a task number to "
+                + (markAsDone ? "mark" : "unmark"));
         }
 
         try {
             int taskNumber = Integer.parseInt(details.trim());
             int index = taskNumber - 1;
             Task task = tasks.getTask(index);
-            
             if (markAsDone) {
                 task.markAsDone();
                 ui.showMessage("Nice! I've marked this task as done:\n  " + task);

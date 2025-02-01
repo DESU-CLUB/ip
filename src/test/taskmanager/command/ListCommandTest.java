@@ -1,16 +1,21 @@
 package taskmanager.command;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import taskmanager.task.Task;  // Added this import
+
+import taskmanager.task.Task; // Added this import
 import taskmanager.task.TaskList;
 import taskmanager.ui.Ui;
 import taskmanager.utils.ByteBiteException;
 
-import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class ListCommandTest {
     private TaskList taskList;
@@ -29,10 +34,8 @@ class ListCommandTest {
         // Arrange
         ArrayList<Task> mockTasks = new ArrayList<>();
         when(taskList.getTaskList()).thenReturn(mockTasks);
-
         // Act
         command.execute(taskList, ui);
-
         // Assert
         verify(ui).showTaskList(mockTasks);
     }

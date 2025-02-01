@@ -1,28 +1,28 @@
 package taskmanager;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-import taskmanager.command.Command;
-import taskmanager.parser.Parser;
-import taskmanager.storage.Storage;
-import taskmanager.task.Task;
-import taskmanager.task.Todo;
-import taskmanager.task.TaskList;
-import taskmanager.ui.Ui;
-import taskmanager.utils.ByteBiteException;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.contains;
-import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import taskmanager.parser.Parser;
+import taskmanager.storage.Storage;
+import taskmanager.task.Task;
+import taskmanager.task.Todo;
+import taskmanager.ui.Ui;
+
+
 
 class ByteBiteTest {
     @TempDir
@@ -43,15 +43,13 @@ class ByteBiteTest {
     }
 
     @Test
-    void initialization_WithValidFile_LoadsTasks() throws IOException {
+    void initializationWithValidFileLoadsTasks() throws IOException {
         // Arrange
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Todo("Test task"));
         when(mockStorage.loadTasksFromFile()).thenReturn(tasks);
-        
         // Act
         byteBite = new ByteBite();
-        
         // Assert
         // Verify no errors were shown
         verify(mockUi, never()).showError(any());

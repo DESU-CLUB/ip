@@ -2,12 +2,14 @@
 // FindCommand.java - New keyword search command
 package taskmanager.command;
 
-import taskmanager.task.TaskList;
+
+import java.util.ArrayList;
+
 import taskmanager.task.Task;
+import taskmanager.task.TaskList;
 import taskmanager.ui.Ui;
 import taskmanager.utils.ByteBiteException;
 import taskmanager.utils.InvalidFormatException;
-import java.util.ArrayList;
 
 /**
  * Represents a command to find tasks by searching for keywords in their descriptions.
@@ -24,20 +26,16 @@ public class FindCommand extends Command {
 
     /**
      * Finds and displays all tasks scheduled for the specified date.
-     * 
-     * @throws ByteBiteException If the keyword is invalid.
+     * @throws ByteBiteException If the t is invalid.
      */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ByteBiteException {
         if (details.isEmpty()) {
             throw new InvalidFormatException("Please provide a keyword to search for");
         }
-
         String keyword = details.trim();
         ArrayList<Task> matchingTasks = tasks.findTasksByKeyword(keyword);
-        
         StringBuilder results = new StringBuilder("Here are the matching tasks in your list:\n");
-        
         if (matchingTasks.isEmpty()) {
             results = new StringBuilder("No matching tasks found.");
         } else {
@@ -45,7 +43,6 @@ public class FindCommand extends Command {
                 results.append(String.format("%d.%s%n", i + 1, matchingTasks.get(i)));
             }
         }
-        
         ui.showMessage(results.toString().trim());
     }
 }
