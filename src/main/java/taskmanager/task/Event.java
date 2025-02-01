@@ -1,7 +1,8 @@
 package taskmanager.task;
 
-import taskmanager.parser.DateParser;
 import java.time.LocalDate;
+
+import taskmanager.parser.DateParser;
 
 /**
  * Represents an event that occurs over a time period.
@@ -27,15 +28,16 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + DateParser.formatForDisplay(startTime) + 
-               " to: " + DateParser.formatForDisplay(endTime) + ")";
+        return "[E]" + super.toString() + " (from: "
+               + DateParser.formatForDisplay(startTime)
+               + " to: " + DateParser.formatForDisplay(endTime) + ")";
     }
 
     /**
      * Returns the start date of this event.
      *
      * @return The event's start date.
-     */   
+     */
     public LocalDate getStartDate() {
         return startTime;
     }

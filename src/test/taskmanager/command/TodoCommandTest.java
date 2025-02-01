@@ -1,15 +1,22 @@
 package taskmanager.command;
 
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import taskmanager.task.TaskList;
+
 import taskmanager.task.Task;
+import taskmanager.task.TaskList;
 import taskmanager.ui.Ui;
 import taskmanager.utils.ByteBiteException;
 import taskmanager.utils.EmptyDescriptionException;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class TodoCommandTest {
     private TaskList taskList;

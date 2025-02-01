@@ -1,9 +1,10 @@
 // TaskList.java
 package taskmanager.task;
 
-import taskmanager.utils.TaskNotFoundException;
-import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.ArrayList;
+
+import taskmanager.utils.TaskNotFoundException;
 
 /**
  * Manages a collection of tasks and provides operations for adding,
@@ -124,22 +125,21 @@ public class TaskList {
         return matchingTasks;
     }
 
-  /**
-   * Finds all tasks whose descriptions contain the given keyword (case-insensitive).
-   *
-   * @param keyword The keyword to search for.
-   * @return A list of tasks containing the keyword in their descriptions.
-   */
-  public ArrayList<Task> findTasksByKeyword(String keyword) {
-      ArrayList<Task> matchingTasks = new ArrayList<>();
-      String lowercaseKeyword = keyword.toLowerCase();
-        
-      for (Task task : tasks) {
-          if (task.getDescription().toLowerCase().contains(lowercaseKeyword)) {
+    /**
+     * Finds all tasks whose descriptions contain the given keyword (case-insensitive).
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of tasks containing the keyword in their descriptions.
+     */
+    public ArrayList<Task> findTasksByKeyword(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        String lowercaseKeyword = keyword.toLowerCase();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(lowercaseKeyword)) {
                 matchingTasks.add(task);
-          }
-      }
-      return matchingTasks;
-  }
+            }
+        }
+        return matchingTasks;
+    }
 
 }

@@ -1,8 +1,10 @@
 // Ui.java
 package taskmanager.ui;
 
-import taskmanager.task.Task;
 import java.util.ArrayList;
+
+import taskmanager.task.Task;
+
 
 /**
  * Handles all user interface interactions in the task management system.
@@ -16,16 +18,14 @@ public class Ui {
           | |_) | |_) |
           |____/|____/
             """;
-    
     private static final String ANSI_CYAN = "\u001B[36m";
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String BORDER = "─".repeat(50);
     private static final String FAREWELL = """
-        🤖 *beep* *boop* 
-        Powering down... Hope to see you again soon! 
+        🤖 *beep* *boop*
+        Powering down... Hope to see you again soon!
         *whirring stops* 🤖
         """;
-
     /**
      * Shows the welcome message and logo when the application starts.
      */
@@ -104,7 +104,6 @@ public class Ui {
             unmark <task number>
             delete <task number>
             bye
-            
             Date format: yyyy-MM-dd (e.g., 2024-12-31 for Dec 31 2024)
             """;
         showMessage(help);

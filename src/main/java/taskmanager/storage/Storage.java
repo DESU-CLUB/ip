@@ -1,12 +1,21 @@
 // Storage.java
 package taskmanager.storage;
 
-import taskmanager.task.*;
-import taskmanager.parser.DateParser;
-import java.io.*;
-import java.nio.file.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import taskmanager.parser.DateParser;
+import taskmanager.task.Deadline;
+import taskmanager.task.Event;
+import taskmanager.task.Task;
+import taskmanager.task.Todo;
+
 
 /**
  * Handles persistence of task data to and from disk storage.
@@ -56,7 +65,6 @@ public class Storage {
      */
     private String convertTaskToStorageFormat(Task task) {
         StringBuilder sb = new StringBuilder();
-        
         // Add task type
         if (task instanceof Todo) {
             sb.append("T");
@@ -65,11 +73,9 @@ public class Storage {
         } else if (task instanceof Event) {
             sb.append("E");
         }
-        
         // Add done status and description
         sb.append(" | ").append(task.isDone() ? "1" : "0")
           .append(" | ").append(task.getDescription());
-        
         // Add specific fields based on task type
         if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
@@ -79,7 +85,6 @@ public class Storage {
             sb.append(" | ").append(DateParser.formatForStorage(event.getStartDate()))
               .append(" | ").append(DateParser.formatForStorage(event.getEndDate()));
         }
-        
         return sb.toString();
     }
 
@@ -93,12 +98,10 @@ public class Storage {
      */
     public ArrayList<Task> loadTasksFromFile() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
-        
         // If file doesn't exist, return empty list
         if (!Files.exists(filePath)) {
             return tasks;
         }
-
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -132,28 +135,31 @@ public class Storage {
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
         Task task;
-
         try {
             switch (type) {
-                case "T":
-                    task = new Todo(description);
-                    break;
-                case "D":
-                    if (parts.length < 4) throw new IllegalArgumentException("Invalid deadline format");
-                    LocalDate deadlineDate = DateParser.parseDate(parts[3]);
-                    task = new Deadline(description, deadlineDate);
-                    break;
-                case "E":
-                    if (parts.length < 5) throw new IllegalArgumentException("Invalid event format");
-                    LocalDate startDate = DateParser.parseDate(parts[3]);
-                    LocalDate endDate = DateParser.parseDate(parts[4]);
-                    if (!DateParser.isValidDateRange(startDate, endDate)) {
-                        throw new IllegalArgumentException("Invalid date range in storage file");
-                    }
-                    task = new Event(description, startDate, endDate);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unknown task type: " + type);
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                if (parts.length < 4) {
+                    throw new IllegalArgumentException("Invalid deadline format");
+                }
+                LocalDate deadlineDate = DateParser.parseDate(parts[3]);
+                task = new Deadline(description, deadlineDate);
+                break;
+            case "E":
+                if (parts.length < 5) {
+                    throw new IllegalArgumentException("Invalid event format");
+                }
+                LocalDate startDate = DateParser.parseDate(parts[3]);
+                LocalDate endDate = DateParser.parseDate(parts[4]);
+                if (!DateParser.isValidDateRange(startDate, endDate)) {
+                    throw new IllegalArgumentException("Invalid date range in storage file");
+                }
+                task = new Event(description, startDate, endDate);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown task type: " + type);
             }
 
             if (isDone) {

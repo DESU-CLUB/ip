@@ -1,7 +1,16 @@
 // Parser.java
 package taskmanager.parser;
 
-import taskmanager.command.*;
+import taskmanager.command.Command;
+import taskmanager.command.DeadlineCommand;
+import taskmanager.command.DeleteCommand;
+import taskmanager.command.EventCommand;
+import taskmanager.command.FindCommand;
+import taskmanager.command.FindDateCommand;
+import taskmanager.command.HelpCommand;
+import taskmanager.command.ListCommand;
+import taskmanager.command.MarkCommand;
+import taskmanager.command.TodoCommand;
 import taskmanager.utils.ByteBiteException;
 import taskmanager.utils.InvalidCommandException;
 
@@ -31,17 +40,17 @@ public class Parser {
         String details = parts.length > 1 ? parts[1].trim() : "";
 
         return switch (commandType) {
-            case "todo" -> new TodoCommand(details);
-            case "deadline" -> new DeadlineCommand(details);
-            case "event" -> new EventCommand(details);
-            case "list" -> new ListCommand();
-            case "mark" -> new MarkCommand(details, true);
-            case "unmark" -> new MarkCommand(details, false);
-            case "delete" -> new DeleteCommand(details);
-            case "help" -> new HelpCommand();
-            case "find" -> new FindCommand(details);
-            case "finddate" -> new FindDateCommand(details);
-            default -> throw new InvalidCommandException(commandType);
+        case "todo" -> new TodoCommand(details);
+        case "deadline" -> new DeadlineCommand(details);
+        case "event" -> new EventCommand(details);
+        case "list" -> new ListCommand();
+        case "mark" -> new MarkCommand(details, true);
+        case "unmark" -> new MarkCommand(details, false);
+        case "delete" -> new DeleteCommand(details);
+        case "help" -> new HelpCommand();
+        case "find" -> new FindCommand(details);
+        case "finddate" -> new FindDateCommand(details);
+        default -> throw new InvalidCommandException(commandType);
         };
     }
 }

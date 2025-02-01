@@ -13,6 +13,6 @@ public class TaskNotFoundException extends ByteBiteException {
      * @param totalTasks The total number of tasks currently in the list.
      */
     public TaskNotFoundException(int taskNumber, int totalTasks) {
-        super("Task " + taskNumber + " not found. Available tasks: "+ (totalTasks == 0 ? 0 : 1) + " to " + totalTasks);
+        super("Task " + taskNumber + " not found. Available tasks: " + (totalTasks == 0 ? 0 : 1) + " to " + totalTasks);
     }
 }

@@ -1,18 +1,24 @@
 package taskmanager.command;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import taskmanager.task.TaskList;
+
 import taskmanager.task.Task;
+import taskmanager.task.TaskList;
 import taskmanager.ui.Ui;
 import taskmanager.utils.ByteBiteException;
 import taskmanager.utils.EmptyDescriptionException;
 import taskmanager.utils.InvalidFormatException;
 
-import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class DeadlineCommandTest {
     private TaskList taskList;
@@ -63,7 +69,6 @@ class DeadlineCommandTest {
     void executeInvalidDateFormatThrowsException() {
         // Arrange
         DeadlineCommand command = new DeadlineCommand("Submit report /by invalid-date");
-
         // Act & Assert
         assertThrows(InvalidFormatException.class, () ->
             command.execute(taskList, ui));
@@ -73,7 +78,6 @@ class DeadlineCommandTest {
     void executeEmptyDescriptionWithByDelimiterThrowsException() {
         // Arrange
         DeadlineCommand command = new DeadlineCommand(" /by 2024-12-31");
-
         // Act & Assert
         assertThrows(InvalidFormatException.class, () ->
             command.execute(taskList, ui));
@@ -83,7 +87,6 @@ class DeadlineCommandTest {
     void requiresSaveReturnsTrue() {
         // Arrange
         DeadlineCommand command = new DeadlineCommand("Submit report /by 2024-12-31");
-
         // Act & Assert
         assertTrue(command.requiresSave());
     }
