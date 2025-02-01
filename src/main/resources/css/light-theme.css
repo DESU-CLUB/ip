@@ -1,0 +1,29 @@
+/* light-theme.css */
+.root {
+    -fx-background-color: white;
+}
+
+.theme-toggle {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: #e1e8ed;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: #e1e8ed;
+}
+
+.dialog-container {
+    -fx-background-color: white;
+}
+
+.scroll-pane {
+    -fx-background: white;
+}
+
+.dialog-box {
+    -fx-background-color: #f8f9fa;
+    -fx-text-fill: black;
+}

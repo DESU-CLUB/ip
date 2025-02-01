@@ -1,0 +1,112 @@
+/* main.css */
+.root {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.root.dark {
+    -fx-background-color: #15202b;
+    -fx-text-fill: white;
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode-toggle {
+    -fx-background-color: #e1e8ed;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-padding: 5px;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-text-fill: #1da1f2; /* Default text color for light mode */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1);
+}
+
+.dark .dark-mode-toggle {
+    -fx-background-color: #253341;
+    -fx-text-fill: white; /* Text color for dark mode */
+}
+
+/* Input area styling */
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color: #e1e8ed;
+    -fx-border-width: 1.5px;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-text-fill: black; /* Text color for light mode */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1);
+}
+
+.dark .text-field {
+    -fx-background-color: #253341;
+    -fx-border-color: #38444d;
+    -fx-text-fill: white; /* Text color for dark mode */
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: #1da1f2;
+    -fx-text-fill: white;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-min-width: 80px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1);
+}
+
+/* ScrollPane styling */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.dark .scroll-pane {
+    -fx-background-color: #15202b;
+    -fx-background: #15202b;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dark .scroll-pane > .viewport {
+    -fx-background-color: #15202b;
+}
+
+/* ScrollBar styling */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.dark .scroll-bar:vertical {
+    -fx-background-color: #253341;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #8899a6;
+    -fx-background-radius: 5px;
+}
+
+.dark .scroll-bar:vertical .thumb {
+    -fx-background-color: #38444d;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+/* Label styling */
+.label {
+    -fx-text-fill: black; /* Default text color for light mode */
+}
+
+.dark .label {
+    -fx-text-fill: white; /* Text color for dark mode */
+}

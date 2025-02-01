@@ -16,12 +16,39 @@ dependencies {
     testImplementation 'org.mockito:mockito-junit-jupiter:4.5.1'
 }
 
+application {
+    mainClass = 'taskmanager.Main'
+}
+
+
+// Task to run the CLI version
+task runCli(type: JavaExec) {
+    group = 'application'
+    description = 'Runs ByteBite in CLI mode'
+    
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'taskmanager.Main'
+}
+
+// Task to run the GUI version
+task runGui(type: JavaExec) {
+    group = 'application'
+    description = 'Runs ByteBite in GUI mode'
+    
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'taskmanager.Main'
+    args = ['--gui']
+}
 sourceSets{
     main{
         java{
             srcDirs= ['src/main/java']
         }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
     }
+
     test{
         java{
             srcDirs = ['src/test/']
