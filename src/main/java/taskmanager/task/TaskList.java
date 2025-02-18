@@ -27,6 +27,7 @@ public class TaskList {
      * @param tasks The initial list of tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Initial task list cannot be null";
         this.tasks = tasks;
     }
 
@@ -36,7 +37,9 @@ public class TaskList {
      * @param task The task to add.
      */
     public void addTask(Task task) {
+        assert task != null : "Cannot add null task";
         tasks.add(task);
+        assert tasks.contains(task) : "Task was not successfully added";
     }
 
     /**
@@ -48,10 +51,13 @@ public class TaskList {
      * @throws TaskNotFoundException If the index is out of bounds.
      */
     public Task deleteTask(int index) throws TaskNotFoundException {
+        assert index >= 0 : "Task index cannot be negative";
         if (index < 0 || index >= tasks.size()) {
             throw new TaskNotFoundException(index + 1, tasks.size());
         }
-        return tasks.remove(index);
+        Task deletedTask = tasks.remove(index);
+        assert !tasks.contains(deletedTask) : "Task was not successfully deleted";
+        return deletedTask;
     }
 
     /**
@@ -63,10 +69,13 @@ public class TaskList {
      * @throws TaskNotFoundException If the index is out of bounds.
      */
     public Task getTask(int index) throws TaskNotFoundException {
+        assert index >= 0 : "Task index cannot be negative";
         if (index < 0 || index >= tasks.size()) {
             throw new TaskNotFoundException(index + 1, tasks.size());
         }
-        return tasks.get(index);
+        Task task = tasks.get(index);
+        assert task != null : "Retrieved task cannot be null";
+        return task;
     }
 
     /**
@@ -106,6 +115,7 @@ public class TaskList {
      * @return A list of all tasks scheduled for the target date.
      */
     public ArrayList<Task> findTasksOnDate(LocalDate targetDate) {
+        assert targetDate != null : "Target date cannot be null";
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task instanceof Deadline) {
@@ -132,6 +142,7 @@ public class TaskList {
      * @return A list of tasks containing the keyword in their descriptions.
      */
     public ArrayList<Task> findTasksByKeyword(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Search keyword should not be empty";
         ArrayList<Task> matchingTasks = new ArrayList<>();
         String lowercaseKeyword = keyword.toLowerCase();
         for (Task task : tasks) {
