@@ -15,7 +15,7 @@ public class ByteBiteApplication extends Application {
     private ByteBite byteBite;
 
     /**
-     * The start method is called when the application is started.
+     * Sends a signal to the app components when the application is started.
      * It initializes the main window and sets up the scene.
      * @param primaryStage The primary stage for the application.
      * @throws Exception If an error occurs while starting the application.
@@ -43,7 +43,7 @@ public class ByteBiteApplication extends Application {
     }
 
     /**
-     * The main method is the entry point for the application.
+     * Sends signal for the application to start.
      * It starts the application.
      * @param args The command line arguments.
      */

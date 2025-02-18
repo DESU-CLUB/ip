@@ -14,7 +14,7 @@ import taskmanager.utils.TaskNotFoundException;
  * Tasks are identified by their number in the list (1-based indexing).
  */
 public class MarkCommand extends Command {
-    private final boolean markAsDone;
+    private final boolean IsDone;
 
     /**
      * Creates a new MarkCommand with the given task number and mark status.
@@ -22,9 +22,9 @@ public class MarkCommand extends Command {
      * @param details The task number to mark/unmark (as a string).
      * @param markAsDone true to mark as done, false to mark as not done.
      */
-    public MarkCommand(String details, boolean markAsDone) {
+    public MarkCommand(String details, boolean IsDone) {
         super(details);
-        this.markAsDone = markAsDone;
+        this.IsDone = IsDone;
     }
 
     /**
@@ -36,7 +36,7 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui) throws ByteBiteException {
         if (details.isEmpty()) {
             throw new InvalidFormatException("Please provide a task number to "
-                + (markAsDone ? "mark" : "unmark"));
+                + (IsDone ? "mark" : "unmark"));
         }
 
         try {
