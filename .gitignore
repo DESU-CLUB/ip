@@ -16,6 +16,6 @@ bin/
 #TEST UI FILES 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
-
+./data/*
 #jar files
 *.jar
