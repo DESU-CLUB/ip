@@ -31,7 +31,7 @@
 .user-dialog {
     -fx-background-color: #1da1f2;
     -fx-text-fill: white !important; /* Override default text color */
-    -fx-background-radius: 18px 18px 0 18px;
+    -fx-background-radius: 4px 4px 4px;
     -fx-border-width: 0;
 }
 
@@ -148,7 +148,7 @@
 
 /* Dialog box spacing */
 .dialog-box {
-    -fx-margin: 10px 15px;
+    -fx-margin: 5px 10px;
 }
 
 /* Text styling */

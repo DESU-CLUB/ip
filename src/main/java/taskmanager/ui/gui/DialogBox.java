@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -45,7 +46,13 @@ public class DialogBox extends HBox {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
 
+            // Set the image and make sure it's sized correctly
             displayPicture.setImage(img);
+            displayPicture.setFitHeight(128.0);
+            displayPicture.setFitWidth(128.0);
+            displayPicture.setPreserveRatio(true);
+            displayPicture.setSmooth(true);
+
             processText(text);
             
         } catch (IOException e) {
@@ -112,10 +119,19 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+
+        // Adjust margins after flip for user messages
+        HBox.setMargin(dialogContainer, new Insets(0, 5, 0, 0));  // right margin
+        HBox.setMargin(displayPicture, new Insets(0, 0, 0, 15));  // left margin
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        // Adjust margins for user messages
+        HBox.setMargin(db.dialogContainer, new Insets(0, 0, 0, 15));  // left margin
+        HBox.setMargin(db.displayPicture, new Insets(0, 15, 0, 0));  // right margin
+        db.setAlignment(Pos.CENTER_RIGHT);
+        return db;
     }
 
     public static DialogBox getBotDialog(String text, Image img) {
