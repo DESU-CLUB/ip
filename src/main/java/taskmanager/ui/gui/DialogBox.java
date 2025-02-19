@@ -27,8 +27,6 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
     
     private static final Random random = new Random();
-    private static final Pattern TAG_PATTERN = Pattern.compile("#\\w+|[^#]+");
-    
     private static final Color[] TAG_COLORS = {
         Color.rgb(29, 161, 242),   // Twitter Blue
         Color.rgb(67, 160, 71),    // Green
@@ -46,7 +44,6 @@ public class DialogBox extends HBox {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
 
-            // Set the image and make sure it's sized correctly
             displayPicture.setImage(img);
             displayPicture.setFitHeight(128.0);
             displayPicture.setFitWidth(128.0);
@@ -61,24 +58,40 @@ public class DialogBox extends HBox {
     }
 
     private void processText(String text) {
-        // Process each line separately
         String[] lines = text.split("\n");
         for (String line : lines) {
+            if (line.trim().isEmpty()) continue;
+            
             HBox lineBox = new HBox(5);
             lineBox.setAlignment(Pos.CENTER_LEFT);
             
-            // Use regex matcher to properly split text and tags
-            Matcher matcher = TAG_PATTERN.matcher(line);
-            while (matcher.find()) {
-                String part = matcher.group();
-                if (part.startsWith("#")) {
-                    addTagLabel(lineBox, part);
-                } else {
-                    addTextLabel(lineBox, part);
+            // Find all tags in the text
+            Pattern tagPattern = Pattern.compile("#\\w+");
+            Matcher tagMatcher = tagPattern.matcher(line);
+            
+            // Split the text into parts while preserving tags
+            int lastEnd = 0;
+            while (tagMatcher.find()) {
+                // Add text before the tag
+                String beforeTag = line.substring(lastEnd, tagMatcher.start()).trim();
+                if (!beforeTag.isEmpty()) {
+                    addTextLabel(lineBox, beforeTag);
                 }
+                
+                // Add the tag
+                addTagLabel(lineBox, tagMatcher.group());
+                lastEnd = tagMatcher.end();
             }
             
-            dialogContainer.getChildren().add(lineBox);
+            // Add remaining text after last tag
+            String remaining = line.substring(lastEnd).trim();
+            if (!remaining.isEmpty()) {
+                addTextLabel(lineBox, remaining);
+            }
+            
+            if (!lineBox.getChildren().isEmpty()) {
+                dialogContainer.getChildren().add(lineBox);
+            }
         }
     }
 
@@ -119,18 +132,14 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
-
-        // Adjust margins after flip for user messages
-        HBox.setMargin(dialogContainer, new Insets(0, 5, 0, 0));  // right margin
-        HBox.setMargin(displayPicture, new Insets(0, 0, 0, 15));  // left margin
+        HBox.setMargin(dialogContainer, new Insets(0, 15, 0, 0));
+        HBox.setMargin(displayPicture, new Insets(10, 0, 0, 15));
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        // Adjust margins for user messages
-        HBox.setMargin(db.dialogContainer, new Insets(0, 0, 0, 15));  // left margin
-        HBox.setMargin(db.displayPicture, new Insets(0, 15, 0, 0));  // right margin
-        db.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setMargin(db.dialogContainer, new Insets(0, 0, 0, 15));
+        HBox.setMargin(db.displayPicture, new Insets(0, 15, 0, 0));
         return db;
     }
 

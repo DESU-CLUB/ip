@@ -1,6 +1,6 @@
 T | 0 | test
 T | 0 | Read Book
-T | 0 | Tear book | #fun
+T | 0 | Tear book | #CS2103Fun,#fun
 T | 1 | test2 | #woohoo
 D | 1 | coom | 2019-11-11
 E | 0 | coomer | 2019-11-11 | 2020-11-11
