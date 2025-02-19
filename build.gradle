@@ -28,6 +28,12 @@ task runCli(type: JavaExec) {
     
     classpath = sourceSets.main.runtimeClasspath
     mainClass = 'taskmanager.Main'
+
+    // Enable console input
+    standardInput = System.in
+    
+    // Keep the terminal window open
+    ignoreExitValue = true
 }
 
 // Task to run the GUI version

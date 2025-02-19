@@ -10,6 +10,7 @@ import taskmanager.command.FindDateCommand;
 import taskmanager.command.HelpCommand;
 import taskmanager.command.ListCommand;
 import taskmanager.command.MarkCommand;
+import taskmanager.command.TagCommand;
 import taskmanager.command.TodoCommand;
 import taskmanager.utils.ByteBiteException;
 import taskmanager.utils.InvalidCommandException;
@@ -50,6 +51,8 @@ public class Parser {
         case "help" -> new HelpCommand();
         case "find" -> new FindCommand(details);
         case "finddate" -> new FindDateCommand(details);
+        case "tag" -> new TagCommand(details, true);
+        case "untag" -> new TagCommand(details, false);
         default -> throw new InvalidCommandException(commandType);
         };
     }

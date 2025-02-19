@@ -1,5 +1,7 @@
 package taskmanager.ui.gui;
 
+import java.util.ArrayList;
+
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -12,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import taskmanager.ByteBite;
+import taskmanager.task.Task;
 import taskmanager.ui.GuiUi;
 import taskmanager.utils.ByteBiteException;
 
@@ -116,6 +119,7 @@ public class MainWindow {
         public CustomGuiUi(VBox dialogContainer, Image botImage) {
             super(dialogContainer, botImage);
         }
+        
         @Override
         public void showMessage(String message) {
             DialogBox box = DialogBox.getBotDialog(message, botImage);
@@ -123,10 +127,29 @@ public class MainWindow {
             box.getStyleClass().add(commandType);
             dialogContainer.getChildren().add(box);
         }
+        
         @Override
         public void showError(String message) {
             DialogBox box = DialogBox.getBotDialog("⚠️ " + message, botImage);
             box.getStyleClass().add("error-message");
+            dialogContainer.getChildren().add(box);
+        }
+
+        @Override
+        public void showTaskList(ArrayList<Task> tasks) {
+            if (tasks.isEmpty()) {
+                showMessage("No tasks in the list!");
+                return;
+            }
+
+            StringBuilder list = new StringBuilder("Here are your tasks:\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+                list.append(String.format("\n%d. %s", i + 1, task.toString()));
+            }
+
+            DialogBox box = DialogBox.getBotDialog(list.toString().trim(), botImage);
+            box.getStyleClass().add("list-command");
             dialogContainer.getChildren().add(box);
         }
     }

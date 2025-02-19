@@ -1,5 +1,8 @@
 // Task.java
 package taskmanager.task;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Represents a basic task in the task management system.
@@ -9,6 +12,7 @@ package taskmanager.task;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected Set<String> tags = new HashSet<>();
 
     /**
      * Creates a new task with the given description.
@@ -53,8 +57,28 @@ public class Task {
         return isDone;
     }
 
+    public void addTag(String tag){
+      if (tag.startsWith("#")) {
+        tags.add(tag);
+      } else {
+        tags.add("#" + tag);
+      }
+    }
+
+    public void removeTag(String tag) {
+      String normalizedTag = tag.startsWith("#") ? tag : "#" + tag;
+      tags.remove(normalizedTag);
+    }
+
+    public Set<String> getTags() {
+      return new HashSet<>(tags);
+    }
+
     @Override
     public String toString() {
-        return String.format("[%s] %s", isDone ? "X" : " ", description);
+        String tagString = tags.isEmpty() ? "" : " " + tags.stream()
+                .sorted()
+                .collect(Collectors.joining(" "));
+        return String.format("[%s] %s%s", isDone ? "X" : " ", description, tagString);
     }
 }

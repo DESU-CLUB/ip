@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Set;
 
 import taskmanager.parser.DateParser;
 import taskmanager.task.Deadline;
@@ -84,6 +85,11 @@ public class Storage {
             Event event = (Event) task;
             sb.append(" | ").append(DateParser.formatForStorage(event.getStartDate()))
               .append(" | ").append(DateParser.formatForStorage(event.getEndDate()));
+        }
+        // Add tags
+        Set<String> tags = task.getTags();
+        if (!tags.isEmpty()) {
+            sb.append(" | ").append(String.join(",", tags));
         }
         return sb.toString();
     }
@@ -164,6 +170,17 @@ public class Storage {
 
             if (isDone) {
                 task.markAsDone();
+            }
+
+            // Add tags if present
+            int tagIndex = type.equals("T") ? 3 : (type.equals("D") ? 4 : 5);
+            if (parts.length > tagIndex && !parts[tagIndex].trim().isEmpty()) {
+                String[] tags = parts[tagIndex].split(",");
+                for (String tag : tags) {
+                    if (!tag.trim().isEmpty()) {
+                        task.addTag(tag.trim());
+                    }
+                }
             }
 
             return task;
