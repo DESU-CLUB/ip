@@ -27,7 +27,7 @@ jobs:
 
       # Build the project using Gradle
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build --add-modules=javafx.controls,javafx.fxml,javafx.graphics
 
       # (Optional) Run additional tests if you have any.
       # Remove or modify the steps below if they are not applicable.
