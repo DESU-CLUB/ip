@@ -1,4 +1,5 @@
 name: Java CI
+
 on:
   push:
     branches: [master]
@@ -16,27 +17,17 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          distribution: "temurin"
+          distribution: temurin
           java-version: "17"
-          cache: "gradle"
-
-      - name: Setup JavaFX dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y openjfx
+          cache: gradle
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Build with Gradle
         run: |
-          export JAVAFX_MODULES_PATH=/usr/share/openjfx/lib
-          ./gradlew build --info \
-            -Pjavafx.modules.path=$JAVAFX_MODULES_PATH \
-            -Dorg.gradle.java.home=$JAVA_HOME \
-            -Djavafx.platform=linux
+          ./gradlew clean build --info -Pjavafx.platform=linux
 
       - name: Run Checkstyle
         run: |
-          ./gradlew checkstyleMain
-          ./gradlew checkstyleTest
+          ./gradlew checkstyleMain checkstyleTest
