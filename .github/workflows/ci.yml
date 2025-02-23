@@ -33,7 +33,7 @@ jobs:
           export JAVAFX_MODULES_PATH=/usr/share/openjfx/lib
           ./gradlew build --info \
             -Pjavafx.modules.path=$JAVAFX_MODULES_PATH \
-            -Dorg.gradle.java.home=/usr/lib/jvm/java-17-temurin \
+            -Dorg.gradle.java.home=/usr/lib/jvm/java-17-temurin-amd64 \
             -Djavafx.platform=linux
 
       - name: Run Checkstyle
