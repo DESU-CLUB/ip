@@ -27,7 +27,7 @@ jobs:
 
       - name: Build with Gradle
         env:
-          GRADLE_OPTS: "--add-modules=javafx.controls,javafx.fxml,javafx.graphics"
+          GRADLE_OPTS: "--module-path /usr/share/openjfx/lib --add-modules=javafx.controls,javafx.fxml,javafx.graphics"
         run: ./gradlew build
 
       - name: Checkstyle on main code
