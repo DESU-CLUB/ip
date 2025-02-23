@@ -57,21 +57,36 @@ public class Task {
         return isDone;
     }
 
-    public void addTag(String tag){
-      if (tag.startsWith("#")) {
-        tags.add(tag);
-      } else {
-        tags.add("#" + tag);
-      }
+    /**
+     * Adds a tag to this task.
+     * Automatically adds a '#' prefix if not present in the input tag.
+     * If the tag already exists, it will not be duplicated.
+     *
+     * @param tag The tag to add, with or without '#' prefix.
+     */
+    public void addTag(String tag) {
+        if (tag.startsWith("#")) {
+            tags.add(tag);
+        } else {
+            tags.add("#" + tag);
+        }
     }
 
+    /**
+     * Removes a tag from this task if it exists.
+     * Automatically handles tags with or without '#' prefix by normalizing
+     * the input tag before removal. For example, both "tag" and "#tag"
+     * will remove the tag "#tag" from the task.
+     *
+     * @param tag The tag to remove, with or without '#' prefix.
+     */
     public void removeTag(String tag) {
-      String normalizedTag = tag.startsWith("#") ? tag : "#" + tag;
-      tags.remove(normalizedTag);
+        String normalizedTag = tag.startsWith("#") ? tag : "#" + tag;
+        tags.remove(normalizedTag);
     }
 
     public Set<String> getTags() {
-      return new HashSet<>(tags);
+        return new HashSet<>(tags);
     }
 
     @Override

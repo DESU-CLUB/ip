@@ -119,7 +119,6 @@ public class MainWindow {
         public CustomGuiUi(VBox dialogContainer, Image botImage) {
             super(dialogContainer, botImage);
         }
-        
         @Override
         public void showMessage(String message) {
             DialogBox box = DialogBox.getBotDialog(message, botImage);
@@ -127,7 +126,6 @@ public class MainWindow {
             box.getStyleClass().add(commandType);
             dialogContainer.getChildren().add(box);
         }
-        
         @Override
         public void showError(String message) {
             DialogBox box = DialogBox.getBotDialog("⚠️ " + message, botImage);

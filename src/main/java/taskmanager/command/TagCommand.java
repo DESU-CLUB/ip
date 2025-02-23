@@ -8,14 +8,36 @@ import taskmanager.utils.ByteBiteException;
 import taskmanager.utils.InvalidFormatException;
 import taskmanager.utils.TaskNotFoundException;
 
+/**
+ * Represents a command to add or remove tags from a task.
+ * Handles both tagging and untagging operations based on the isAdding flag.
+ * Tags are added with '#' prefix if not provided.
+ */
 public class TagCommand extends Command {
     private final boolean isAdding;
 
+    /**
+     * Creates a new TagCommand for either adding or removing tags.
+     *
+     * @param details The command details containing task number and tag.
+     * @param isAdding true to add a tag, false to remove a tag.
+     */
     public TagCommand(String details, boolean isAdding) {
         super(details);
         this.isAdding = isAdding;
     }
 
+    /**
+     * Executes the tag command by adding or removing a tag from the specified task.
+     * The command format should be: "tag/untag [task number] [tag]".
+     * The tag can be provided with or without the '#' prefix.
+     *
+     * @param tasks The task list to modify.
+     * @param ui The ui to show the results.
+     * @throws InvalidFormatException If the command format is invalid or task number
+     *         is not a valid number.
+     * @throws TaskNotFoundException If the specified task number does not exist.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws ByteBiteException {
         if (details.isEmpty()) {
