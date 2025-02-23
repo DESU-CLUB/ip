@@ -2,7 +2,7 @@
 
 ByteBite is a desktop task manager application with a chat-based interface, designed to help you manage your tasks, deadlines, and events through natural conversation. ByteBite comes with both command-line and graphical user interfaces, making it versatile for different user preferences.
 
-![ByteBite Interface](placeholder-for-screenshot.png)
+![ByteBite Interface](Ui.png)
 
 ## Quick Start
 
