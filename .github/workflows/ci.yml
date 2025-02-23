@@ -1,5 +1,4 @@
 name: Java CI
-
 on:
   push:
     branches: [master]
@@ -19,19 +18,25 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17"
+          cache: "gradle"
 
-      - name: Install OpenJFX
+      - name: Setup JavaFX dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y openjfx
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Build with Gradle
-        env:
-          GRADLE_OPTS: "--module-path /usr/share/openjfx/lib --add-modules=javafx.controls,javafx.fxml,javafx.graphics"
-        run: ./gradlew build
+        run: |
+          export JAVAFX_MODULES_PATH=/usr/share/openjfx/lib
+          ./gradlew build --info \
+            -Pjavafx.modules.path=$JAVAFX_MODULES_PATH \
+            -Dorg.gradle.java.home=/usr/lib/jvm/java-17-temurin \
+            -Djavafx.platform=linux
 
-      - name: Checkstyle on main code
-        run: ./gradlew checkstylemain
-
-      - name: Checkstyle on test code
-        run: ./gradlew checkstyletest
+      - name: Run Checkstyle
+        run: |
+          ./gradlew checkstyleMain
+          ./gradlew checkstyleTest
