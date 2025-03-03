@@ -1,159 +1,43 @@
-/* dialog-box.css */
+/* Dialog box styling */
 .dialog-box {
-    -fx-padding: 10px;
-    -fx-spacing: 15px;
-    -fx-max-width: 300px;
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 1;
+    -fx-max-width: 400px;
 }
 
-.label {
-    -fx-padding: 12px 18px;
-    -fx-background-radius: 18px;
-    -fx-border-radius: 18px;
-    -fx-wrap-text: true;
-    -fx-font-size: 14px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1);
-}
-
-.tag {
-    -fx-background-radius: 12px;
-    -fx-padding: 2px 8px;
-    -fx-font-size: 12px;
-    -fx-border-radius: 12px;
-    -fx-border-width: 1px;
-    -fx-margin: 0 2px;
-}
-
-.dark .tag {
-    -fx-background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* User Messages */
-.user-dialog {
-    -fx-background-color: #1da1f2;
-    -fx-text-fill: white !important; /* Override default text color */
-    -fx-background-radius: 4px 4px 4px;
-    -fx-border-width: 0;
-}
-
-.dark .user-dialog {
-    -fx-background-color: #1a91da;
-}
-
-/* Bot Messages - Different colors for different commands */
+/* Bot message specific styling */
 .bot-dialog {
-    -fx-background-color: #e8f5fe;
-    -fx-text-fill: #14171a !important; /* Override for light mode */
-    -fx-background-radius: 18px 18px 18px 0;
-    -fx-border-width: 1.5px;
-    -fx-border-color: #c8e5fd;
+    -fx-background-color: #e9f5fe;
 }
 
-.dark .bot-dialog {
-    -fx-background-color: #253341;
-    -fx-text-fill: white !important; /* Override for dark mode */
+/* User message specific styling */
+.user-dialog {
+    -fx-background-color: #e3f2fd;
+}
+
+/* Error message styling */
+.error-message {
+    -fx-background-color: #ffebee;
+}
+
+/* Dark mode styles */
+.dark .dialog-box {
+    -fx-background-color: #192734;
+    -fx-text-fill: white;
     -fx-border-color: #38444d;
 }
 
-/* Command-specific styles */
-.todo-command {
-    -fx-background-color: #e3f2fd;
-    -fx-border-color: #bbdefb;
-    -fx-text-fill: #14171a !important;
+.dark .bot-dialog {
+    -fx-background-color: #162d40;
 }
 
-.dark .todo-command {
-    -fx-background-color: #1d3557;
-    -fx-border-color: #2c4a7c;
-    -fx-text-fill: white !important;
-}
-
-.deadline-command {
-    -fx-background-color: #f3e5f5;
-    -fx-border-color: #e1bee7;
-    -fx-text-fill: #14171a !important;
-}
-
-.dark .deadline-command {
-    -fx-background-color: #4a1d57;
-    -fx-border-color: #6a2a7c;
-    -fx-text-fill: white !important;
-}
-
-.event-command {
-    -fx-background-color: #e8f5e9;
-    -fx-border-color: #c8e6c9;
-    -fx-text-fill: #14171a !important;
-}
-
-.dark .event-command {
-    -fx-background-color: #1d572b;
-    -fx-border-color: #2a7c3d;
-    -fx-text-fill: white !important;
-}
-
-.list-command {
-    -fx-background-color: #fff3e0;
-    -fx-border-color: #ffe0b2;
-    -fx-text-fill: #14171a !important;
-}
-
-.dark .list-command {
-    -fx-background-color: #573d1d;
-    -fx-border-color: #7c562a;
-    -fx-text-fill: white !important;
-}
-
-.delete-command {
-    -fx-background-color: #ffebee;
-    -fx-border-color: #ffcdd2;
-    -fx-text-fill: #14171a !important;
-}
-
-.dark .delete-command {
-    -fx-background-color: #571d1d;
-    -fx-border-color: #7c2a2a;
-    -fx-text-fill: white !important;
-}
-
-.mark-command {
-    -fx-background-color: #e0f7fa;
-    -fx-border-color: #b2ebf2;
-    -fx-text-fill: #14171a !important;
-}
-
-.dark .mark-command {
-    -fx-background-color: #1d4e57;
-    -fx-border-color: #2a707c;
-    -fx-text-fill: white !important;
-}
-
-/* Error messages */
-.error-message {
-    -fx-background-color: #ffebee;
-    -fx-text-fill: #c62828 !important;
-    -fx-border-color: #ffcdd2;
+.dark .user-dialog {
+    -fx-background-color: #1e3a54;
 }
 
 .dark .error-message {
-    -fx-background-color: #571d1d;
-    -fx-text-fill: #ff5252 !important;
-    -fx-border-color: #7c2a2a;
-}
-
-#displayPicture {
-    -fx-fit-height: 40px;
-    -fx-fit-width: 40px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
-}
-
-/* Dialog box spacing */
-.dialog-box {
-    -fx-margin: 5px 10px;
-}
-
-/* Text styling */
-.label {
-    -fx-padding: 12px 18px;
-    -fx-border-width: 1.5px;
-    -fx-border-style: solid;
+    -fx-background-color: #4a1515;
 }

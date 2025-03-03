@@ -1,0 +1,14 @@
+/* Header bar styling */
+.header-bar {
+    -fx-background-color: #3498db;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 2);
+}
+
+/* Dark mode styles for the header */
+.dark .header-bar {
+    -fx-background-color: #253341;
+}
+
+.dark .header-bar .label {
+    -fx-text-fill: white;
+}

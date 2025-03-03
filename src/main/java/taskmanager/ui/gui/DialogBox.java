@@ -57,8 +57,8 @@ public class DialogBox extends HBox {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             displayPicture.setImage(img);
-            displayPicture.setFitHeight(128.0);
-            displayPicture.setFitWidth(128.0);
+            displayPicture.setFitHeight(50.0);
+            displayPicture.setFitWidth(50.0);
             displayPicture.setPreserveRatio(true);
             displayPicture.setSmooth(true);
             processText(text);
@@ -174,6 +174,7 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        db.getStyleClass().add("user-dialog");
         HBox.setMargin(db.dialogContainer, new Insets(0, 0, 0, 15));
         HBox.setMargin(db.displayPicture, new Insets(0, 15, 0, 0));
         return db;
@@ -189,6 +190,7 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getBotDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        db.getStyleClass().add("bot-dialog");
         db.flip();
         return db;
     }

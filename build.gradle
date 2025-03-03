@@ -3,6 +3,7 @@ plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.0.13' // Add JavaFX plugin
 }
 
 repositories {
@@ -16,24 +17,15 @@ dependencies {
     testImplementation 'org.mockito:mockito-junit-jupiter:4.5.1'
 }
 
-application {
-    mainClass = 'taskmanager.Main'
+// Configure JavaFX modules
+javafx {
+    version = "17"
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 
-
-// Task to run the CLI version
-task runCli(type: JavaExec) {
-    group = 'application'
-    description = 'Runs ByteBite in CLI mode'
-    
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'taskmanager.Main'
-
-    // Enable console input
-    standardInput = System.in
-    
-    // Keep the terminal window open
-    ignoreExitValue = true
+// Define Main.java as the entry point
+application {
+    mainClass.set('taskmanager.Main')
 }
 
 // Task to run the GUI version
@@ -43,42 +35,49 @@ task runGui(type: JavaExec) {
     
     classpath = sourceSets.main.runtimeClasspath
     mainClass = 'taskmanager.Main'
-    args = ['--gui']
 }
-sourceSets{
-    main{
-        java{
-            srcDirs= ['src/main/java']
+
+// Task to run the CLI version
+task runCli(type: JavaExec) {
+    group = 'application'
+    description = 'Runs ByteBite in CLI mode'
+    
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'taskmanager.Main'
+    args = ['--cli']
+    // Enable console input
+    standardInput = System.in
+    
+    // Keep the terminal window open
+    ignoreExitValue = true
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
         }
         resources {
             srcDirs = ['src/main/resources']
         }
     }
-
-    test{
-        java{
+    test {
+        java {
             srcDirs = ['src/test/']
         }
     }
 }
 
-
 test {
     useJUnitPlatform()
-
     testLogging {
         events "passed", "skipped", "failed"
-
         showExceptions true
         exceptionFormat "full"
         showCauses true
         showStackTraces true
         showStandardStreams = false
     }
-}
-
-application {
-    mainClass.set("taskmanager.ByteBite")
 }
 
 shadowJar {
@@ -90,6 +89,6 @@ checkstyle {
     toolVersion = "10.2"
 }
 
-run{
+run {
     standardInput = System.in
 }

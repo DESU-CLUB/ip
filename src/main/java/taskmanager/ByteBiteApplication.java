@@ -31,6 +31,7 @@ public class ByteBiteApplication extends Application {
         // Add CSS
         scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/css/dialog-box.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/css/header.css").toExternalForm()); // Add header CSS
         // Get the controller and inject ByteBite instance
         MainWindow controller = fxmlLoader.getController();
         controller.setByteBite(byteBite);
@@ -48,11 +49,11 @@ public class ByteBiteApplication extends Application {
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        if (args.length > 0 && args[0].equals("--gui")) {
-            launch(args);
-        } else {
+        if (args.length > 0 && args[0].equals("--cli")) {
             ByteBite byteBite = new ByteBite();
             byteBite.start();
+        } else {
+            launch();
         }
     }
 }
