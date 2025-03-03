@@ -57,8 +57,8 @@ public class DialogBox extends HBox {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             displayPicture.setImage(img);
-            displayPicture.setFitHeight(50.0);
-            displayPicture.setFitWidth(50.0);
+            displayPicture.setFitHeight(88.0);
+            displayPicture.setFitWidth(88.0);
             displayPicture.setPreserveRatio(true);
             displayPicture.setSmooth(true);
             processText(text);
@@ -117,6 +117,7 @@ public class DialogBox extends HBox {
     private void addTextLabel(HBox container, String text) {
         Label textLabel = new Label(text);
         textLabel.setWrapText(true);
+        textLabel.setStyle("-fx-font-size: 15px;");
         container.getChildren().add(textLabel);
     }
 
@@ -141,7 +142,8 @@ public class DialogBox extends HBox {
             + "-fx-border-color: rgb(%d, %d, %d); "
             + "-fx-background-radius: 12px; "
             + "-fx-border-radius: 12px; "
-            + "-fx-padding: 2px 8px;",
+            + "-fx-padding: 2px 8px; "
+            + "-fx-font-size: 15px;",
             backgroundColor,
             (int) (tagColor.getRed() * 255),
             (int) (tagColor.getGreen() * 255),

@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" type="HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="600.0" type="HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <VBox fx:id="dialogContainer" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="100.0" prefWidth="400.0" styleClass="dialog-box">
+        <VBox fx:id="dialogContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="500.0" styleClass="dialog-box">
             <padding>
                 <Insets bottom="5.0" left="15.0" right="2.0" top="5.0" />
             </padding>
@@ -16,7 +16,7 @@
                 <Insets right="3.0" />
             </HBox.margin>
         </VBox>
-        <ImageView fx:id="displayPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="displayPicture" fitHeight="88.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
             <HBox.margin>
                 <Insets top="5.0" />
             </HBox.margin>
