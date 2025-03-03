@@ -11,6 +11,11 @@ repositories {
 }
 
 dependencies {
+   // JavaFX dependencies with the Linux classifier
+    implementation "org.openjfx:javafx-base:17:linux"
+    implementation "org.openjfx:javafx-controls:17:linux"
+    implementation "org.openjfx:javafx-graphics:17:linux"
+    implementation "org.openjfx:javafx-fxml:17:linux"
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
     testImplementation 'org.mockito:mockito-core:4.5.1'
