@@ -3,32 +3,25 @@ plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'checkstyle'
-    id 'org.openjfx.javafxplugin' version '0.0.13' // Add JavaFX plugin
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 repositories {
     mavenCentral()
 }
 
+javafx {
+    version = '17'
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics']
+}
+
 dependencies {
-   // JavaFX dependencies with the Linux classifier
-    implementation "org.openjfx:javafx-base:17:linux"
-    implementation "org.openjfx:javafx-controls:17:linux"
-    implementation "org.openjfx:javafx-graphics:17:linux"
-    implementation "org.openjfx:javafx-fxml:17:linux"
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
     testImplementation 'org.mockito:mockito-core:4.5.1'
     testImplementation 'org.mockito:mockito-junit-jupiter:4.5.1'
 }
 
-// Configure JavaFX modules
-javafx {
-    version = "17"
-    modules = ['javafx.controls', 'javafx.fxml']
-}
-
-// Define Main.java as the entry point
 application {
     mainClass.set('taskmanager.Main')
 }
